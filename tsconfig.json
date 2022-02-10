@@ -1,0 +1,10 @@
+{
+  "extends": "@srclaunch/dx/tsconfig.json",
+  "compilerOptions": {
+    "declarationDir": "dist",
+    "emitDeclarationOnly": true,
+    "rootDir": "src",
+    "types": ["node"]
+  },
+  "include": ["src"]
+}
