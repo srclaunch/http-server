@@ -5,7 +5,7 @@ import {
 } from '@srclaunch/exceptions';
 import Logger from '@srclaunch/logger';
 import { Environment } from '@srclaunch/types';
-import { getEnvironment } from '@srclaunch/environment-node';
+import { getEnvironment } from '@srclaunch/node-environment';
 import compression from 'compression';
 import cors from 'cors';
 import express, { Express, NextFunction, Response } from 'express';
