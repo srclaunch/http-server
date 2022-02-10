@@ -31,6 +31,7 @@
     "lint:eslint": "yarn eslint ./src --ext js,ts,tsx --max-warnings 0",
     "lint:stylelint": "yarn stylelint '**/*.ts[x]'",
     "lint": "yarn lint:eslint && yarn lint:stylelint",
+    "push": "git push --follow-tags origin main",
     "release": "yarn standard-version && git push --follow-tags origin main",
     "test": "yarn ava",
     "test:watch": "yarn ava --watch",
