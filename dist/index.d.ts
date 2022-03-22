@@ -14,7 +14,7 @@ export declare class HttpServer {
     logger: Logger;
     name: string;
     server: Express;
-    options?: ServerOptions;
+    options: ServerOptions;
     constructor({ endpoints, name, options, }: {
         endpoints: Endpoint[];
         name: string;
@@ -22,6 +22,7 @@ export declare class HttpServer {
     });
     private configure;
     listen(portArg?: number): void;
+    private getSecureOrigins;
     private secure;
     gracefulExit(): Promise<void>;
 }

@@ -1,10 +1,5 @@
 import test from 'ava';
 
-
-
-
-
-
 function sum (a: number, b: number) {
   return a + b;
 }

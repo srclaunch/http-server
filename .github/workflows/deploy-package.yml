@@ -4,90 +4,56 @@ on:
     branches:
       - main
 jobs:
-  package:
+  test:
+    name: Test package
     runs-on: ubuntu-latest
     if: github.repository_owner == 'srclaunch'
     steps:
       - uses: actions/checkout@v2
+
       - name: Use Node.js 16.x
         uses: actions/setup-node@v2
         with:
-          # always-auth: true
           node-version: '16.x'
-          registry-url: 'https://registry.npmjs.org'
-          scope: '@srclaunch'
-      - run: yarn install
-      - run: yarn publish --access public
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_ACCESS_TOKEN }}
-# name: Deploy package
-# on:
-#   push:
-#     branches:
-#       - main
-# jobs:
-#   build:
-#     runs-on: ${{ matrix.os }}
-#     strategy:
-#       matrix:
-#         os: [ubuntu-18.04]
-#         node-version: [12.x, 14.x]
-#     steps:
-#       - uses: actions/checkout@v2
-#       - name: Use Node.js 14.x
-#         uses: actions/setup-node@v1
-#         with:
-#           node-version: 14.x
-#           registry-url: https://npm.pkg.github.com/
-#           scope: '@srclaunch'
-#       - name: show npmrc
-#         run: cat .npmrc
-#       - run: npm ci
-#         env:
-#           NODE_AUTH_TOKEN: ${{secrets.GPR_READ_TOKEN}}
-#       - run: npm run build
 
-#   package:
-#     needs: [build]
-#     runs-on: ubuntu-18.04
-#     steps:
-#       - uses: actions/checkout@v2
-#       - name: Use Node.js 14.x
-#         uses: actions/setup-node@v1
-#         with:
-#           node-version: 14.x
-#           registry-url: https://npm.pkg.github.com/
-#           scope: '@srclaunch'
-#       # - run: echo "registry=https://npm.pkg.github.com/@srclaunch\n//npm.pkg.github.com/:_authToken=${{secrets.GITHUB_TOKEN}}" >> .npmrc
-#       - name: show npmrc
-#         run: cat .npmrc
-#       - run: npm ci
-#         env:
-#           NODE_AUTH_TOKEN: ${{secrets.GPR_READ_TOKEN}}
-#       - run: npm run build
-#       - run: npm pack
-#       - name: Upload build artifact
-#         uses: actions/upload-artifact@v2
-#         with:
-#           name: package
-#           path: '*.tgz'
+      - name: Install dependencies
+        run: yarn install
 
-#   publish:
-#     name: 'Publish to GitHub Packages'
-#     needs: [package]
-#     runs-on: ubuntu-18.04
-#     if: github.repository_owner == 'srclaunch' # && github.token != ''
-#     steps:
-#       - name: Download build artifact
-#         uses: actions/download-artifact@v2
-#         with:
-#           name: package
-#       - uses: actions/setup-node@v1
-#         with:
-#           node-version: 14.x
-#           registry-url: https://npm.pkg.github.com/
-#           scope: '@srclaunch'
-#       - run: echo "registry=https://npm.pkg.github.com/@srclaunch" >> .npmrc
-#       - run: npm publish $(ls *.tgz)
-#         env:
-#           NODE_AUTH_TOKEN: ${{secrets.GITHUB_TOKEN}}
+      - name: Run tests script
+        run: yarn test
+        
+  package:
+    name: Deploy package
+    runs-on: ubuntu-latest
+    if: github.repository_owner == 'srclaunch'
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Use Node.js 16.x
+        uses: actions/setup-node@v2
+        with:
+          node-version: '16.x'
+
+      - name: Enable corepack
+        run: corepack enable
+
+      - name: Enable Yarn Berry
+        run: yarn set version stable
+
+      - name: Install dependencies
+        run: yarn install
+
+      - name: Build package
+        run: yarn build
+
+      - name: Allow private package registry access
+        id: allow-private-package-registry-access
+        run: |
+          echo "npmScopes:" > ./.yarnrc.yml
+          echo "  ${{ github.event.repository.owner.login }}:" >> ./.yarnrc.yml
+          echo "    npmRegistryServer: https://registry.npmjs.org" >> ./.yarnrc.yml
+          echo "    npmAlwaysAuth: true" >> ./.yarnrc.yml
+          echo "    npmAuthToken: ${{ secrets.NPM_ACCESS_TOKEN }}" >> ./.yarnrc.yml
+
+      - name: Publish package to NPM
+        run: yarn npm publish

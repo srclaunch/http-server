@@ -26,7 +26,7 @@ export class HttpServer {
   logger: Logger;
   name: string;
   server: Express;
-  options?: ServerOptions = {
+  options: ServerOptions = {
     port: 8080,
   };
 
@@ -43,7 +43,7 @@ export class HttpServer {
     this.server = express();
     this.name = name;
     this.endpoints = endpoints;
-    this.options = options;
+    this.options = { ...this.options, ...options };
 
     this.exceptionsClient = new ExceptionsClient({
       processExceptionsHandler: async () => await this.gracefulExit(),
@@ -100,6 +100,20 @@ export class HttpServer {
     configureExceptionHandling(this.server, this.listener);
   }
 
+  private getSecureOrigins(): string {
+    switch (this.environment.id) {
+      case 'dev':
+        return 'http://localhost:3000';
+        case 'test':
+          return 'http://'
+      case 'prod':
+        return 'https://srclaunch.com';
+      
+      default:
+        return 'http://localhost:3000';
+    }
+  }
+
   private secure() {
     this.server.disable('x-powered-by');
     this.logger.info('Disabled Express x-powered-by header.');
@@ -107,17 +121,23 @@ export class HttpServer {
     // server.use(helmet());
     // this.logger.info('Initialized Helmet.');
 
-    // this.server.use(cors());
     this.server.use(
       cors({
         credentials: true,
-        origin: 'http://localhost:3000',
-      }),
+        origin:  this.options.trustedOrigins?.[this.environment.id]
+      })
     );
 
     this.server.use(
       (req: Express.Request, res: Response, next: NextFunction) => {
-        res.setHeader('Access-Control-Allow-Origin', 'http://localhost:3000');
+        if (this.options.trustedOrigins && this.environment?.id) {
+          const origins = this.options.trustedOrigins?.[this.environment?.id] ?? [];
+          for (const origin of origins) {
+            this.logger.info(`Allowing access from origin ${origin}...`);
+            res.setHeader('Access-Control-Allow-Origin', origin);
+          }
+        }
+    
         res.setHeader('Access-Control-Allow-Methods', '*');
         res.setHeader('Access-Control-Allow-Headers', '*');
         res.setHeader('Access-Control-Allow-Credentials', 'true');
@@ -125,7 +145,7 @@ export class HttpServer {
         next();
       },
     );
-    this.logger.info('Allowing access from localhost:3000 locally...');
+
 
     // server.use(allowCrossDomain);
 

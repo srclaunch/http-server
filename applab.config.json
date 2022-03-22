@@ -20,7 +20,6 @@
     "buildFile": "index.cjs.js",
     "buildTypes": false,
     "bundle": true,
-    "codeSplitting": false,
     "define": {},
     "excludeLibs": ["compression", "cors", "express", "helmet", "multer"],
     "format": "cjs",

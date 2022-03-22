@@ -4,6 +4,7 @@
     "declaration": true,
     "declarationDir": "lib",
     "declarationMap": true,
+    "emitDeclarationOnly": true,
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
     "module": "esnext",
@@ -17,5 +18,5 @@
     "strict": true,
     "target": "es2020"
   },
-  "include": ["./"]
+  "include": ["./index.ts"]
 }

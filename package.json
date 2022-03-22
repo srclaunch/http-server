@@ -46,8 +46,8 @@
   },
   "devDependencies": {
     "@srclaunch/cli": "^0.1.18",
-    "@srclaunch/dx": "^0.1.6",
-    "@srclaunch/types": "^0.1.3",
+    "@srclaunch/dx": "^0.1.15",
+    "@srclaunch/types": "^0.1.21",
     "@types/async-exit-hook": "^2.0.0",
     "@types/compression": "^1.7.2",
     "@types/cors": "^2.8.12",
@@ -88,12 +88,13 @@
     "stylelint-config-prettier": "^9.0.3",
     "stylelint-config-recommended": "^6.0.0",
     "stylelint-order": "^5.0.0",
+    "ts-node": "^10.7.0",
     "typescript": "^4.5.5"
   },
   "dependencies": {
     "@srclaunch/exceptions": "^0.1.6",
     "@srclaunch/logger": "^0.1.2",
-    "@srclaunch/node-environment": "^0.1.2",
+    "@srclaunch/node-environment": "^0.1.4",
     "async-exit-hook": "^2.0.1",
     "compression": "^1.7.4",
     "cors": "^2.8.5",

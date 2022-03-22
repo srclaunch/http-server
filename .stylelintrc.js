@@ -1,5 +1,5 @@
-const base = require('@srclaunch/dx/.stylelintrc');
+import base from '@srclaunch/dx/.stylelintrc';
 
-module.exports = {
+export default {
   ...base,
 };
