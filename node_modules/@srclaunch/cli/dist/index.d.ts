@@ -1,0 +1,3 @@
+export declare const helpMessage = "\nUsage\n  $ applab <command>\n\nCommands\n  build-models - Build models into Sequelize models, Typescript definitions and JSON\n  data - Commands related to building shared data types and models\n  dev - Start Web/mobile apps in development mode.\n  create-project - Create a new AppLab project repository\n  release - Collect changes, bump and tag version, and deploy\n  text - Runs tests\n  update - Update SrcLaunch and AppLab dependencies\n\nTo get help for a specific command type help after the command name, for example:\n  $ applab dev help\n";
+export declare const cli: import("meow").Result<{}>;
+//# sourceMappingURL=index.d.ts.map

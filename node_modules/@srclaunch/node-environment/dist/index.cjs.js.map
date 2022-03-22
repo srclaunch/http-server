@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["../src/index.ts"],
+  "sourcesContent": ["import { Environment, EnvironmentType } from '@srclaunch/types';\n\nconst devEnvironment: Environment = {\n  id: 'dev',\n  type: EnvironmentType.Development,\n  public: false,\n  name: 'Development',\n  description: 'Development environment',\n};\n\nconst testEnvironment: Environment = {\n  id: 'test',\n  type: EnvironmentType.NonProduction,\n  public: false,\n  name: 'Test',\n  description: 'Test environment',\n};\n\nconst prodEnvironment: Environment = {\n  id: 'prod',\n  type: EnvironmentType.Production,\n  public: true,\n  name: 'Production',\n  description: 'Production environment',\n};\n\n\nexport function getEnvironment(): Environment {\n  const environment = process.env.NODE_ENV;\n\n  if (environment === 'dev' || environment === 'development') {\n    return devEnvironment;\n  }\n  if (environment === 'prod' || environment === 'production') {\n    return prodEnvironment;\n  }\n\n  return testEnvironment;\n}\n"],
+  "mappings": "8gBAAA,2CAA6C,4BAE7C,KAAM,GAA8B,CAClC,GAAI,MACJ,KAAM,kBAAgB,YACtB,OAAQ,GACR,KAAM,cACN,YAAa,2BAGT,EAA+B,CACnC,GAAI,OACJ,KAAM,kBAAgB,cACtB,OAAQ,GACR,KAAM,OACN,YAAa,oBAGT,EAA+B,CACnC,GAAI,OACJ,KAAM,kBAAgB,WACtB,OAAQ,GACR,KAAM,aACN,YAAa,0BAIR,YAAuC,CAC5C,KAAM,GAAc,QAAQ,IAAI,SAEhC,MAAI,KAAgB,OAAS,IAAgB,cACpC,EAEL,IAAgB,QAAU,IAAgB,aACrC,EAGF",
+  "names": []
+}
