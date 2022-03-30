@@ -1,33 +1,37 @@
 {
-  "build": [{
-    "buildDir": "dist",
-    "buildFile": "index.js",
-    "buildTypes": false,
-    "bundle": true,
-    "codeSplitting": true,
-    "define": {},
-    "excludeLibs": ["compression", "cors", "express", "helmet", "multer"],
-    "format": "esm",
-    "inputScripts": ["./src/index.ts"],
-    "minify": true,
-    "platform": "node",
-    "sourceMap": true,
-    "target": "es2017",
-    "treeShaking": true
-  },
-  {
-    "buildDir": "dist",
-    "buildFile": "index.cjs.js",
-    "buildTypes": false,
-    "bundle": true,
-    "define": {},
-    "excludeLibs": ["compression", "cors", "express", "helmet", "multer"],
-    "format": "cjs",
-    "inputScripts": ["./src/index.ts"],
-    "minify": true,
-    "platform": "node",
-    "sourceMap": true,
-    "target": "es2017",
-    "treeShaking": true
-  }]
+  "build": [
+    {
+      "buildDir": "dist",
+      "buildFile": "index.js",
+      "buildTypes": true,
+      "bundle": true,
+      "codeSplitting": true,
+      "define": {},
+      "excludeLibs": [],
+      "format": "esm",
+      "inputScripts": ["src/index.ts"],
+      "minify": true,
+      "platform": "node",
+      "sourceMap": true,
+      "target": "esnext",
+      "treeShaking": true,
+      "tsconfigPath": "tsconfig.json"
+    },
+    {
+      "buildDir": "dist",
+      "buildFile": "index.cjs.js",
+      "buildTypes": true,
+      "bundle": true,
+      "define": {},
+      "excludeLibs": [],
+      "format": "cjs",
+      "inputScripts": ["src/index.ts"],
+      "minify": true,
+      "platform": "node",
+      "sourceMap": true,
+      "target": "es2015",
+      "treeShaking": true,
+      "tsconfigPath": "tsconfig.json"
+    }
+  ]
 }

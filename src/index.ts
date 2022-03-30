@@ -100,20 +100,6 @@ export class HttpServer {
     configureExceptionHandling(this.server, this.listener);
   }
 
-  private getSecureOrigins(): string {
-    switch (this.environment.id) {
-      case 'dev':
-        return 'http://localhost:3000';
-        case 'test':
-          return 'http://'
-      case 'prod':
-        return 'https://srclaunch.com';
-      
-      default:
-        return 'http://localhost:3000';
-    }
-  }
-
   private secure() {
     this.server.disable('x-powered-by');
     this.logger.info('Disabled Express x-powered-by header.');

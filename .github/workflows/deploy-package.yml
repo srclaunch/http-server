@@ -1,31 +1,12 @@
 name: Deploy package
+
 on:
   push:
     branches:
       - main
 jobs:
-  test:
-    name: Test package
-    runs-on: ubuntu-latest
-    if: github.repository_owner == 'srclaunch'
-    steps:
-      - uses: actions/checkout@v2
-
-      - name: Use Node.js 16.x
-        uses: actions/setup-node@v2
-        with:
-          node-version: '16.x'
-
-      - name: Install dependencies
-        run: yarn install
-
-      - name: Run tests script
-        run: yarn test
-        
   package:
-    name: Deploy package
     runs-on: ubuntu-latest
-    if: github.repository_owner == 'srclaunch'
     steps:
       - uses: actions/checkout@v2
 
@@ -33,6 +14,16 @@ jobs:
         uses: actions/setup-node@v2
         with:
           node-version: '16.x'
+
+      - name: Allow private package registry access
+        id: allow-private-package-registry-access
+        run: |
+          echo "nodeLinker: node-modules" > ./.yarnrc.yml
+          echo "npmScopes:" >> ./.yarnrc.yml
+          echo "  ${{ github.event.repository.owner.login }}:" >> ./.yarnrc.yml
+          echo "    npmRegistryServer: https://registry.npmjs.org" >> ./.yarnrc.yml
+          echo "    npmAlwaysAuth: true" >> ./.yarnrc.yml
+          echo "    npmAuthToken: ${{ secrets.NPM_ACCESS_TOKEN }}" >> ./.yarnrc.yml
 
       - name: Enable corepack
         run: corepack enable
@@ -46,14 +37,11 @@ jobs:
       - name: Build package
         run: yarn build
 
-      - name: Allow private package registry access
-        id: allow-private-package-registry-access
-        run: |
-          echo "npmScopes:" > ./.yarnrc.yml
-          echo "  ${{ github.event.repository.owner.login }}:" >> ./.yarnrc.yml
-          echo "    npmRegistryServer: https://registry.npmjs.org" >> ./.yarnrc.yml
-          echo "    npmAlwaysAuth: true" >> ./.yarnrc.yml
-          echo "    npmAuthToken: ${{ secrets.NPM_ACCESS_TOKEN }}" >> ./.yarnrc.yml
+      - name: Upload build artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: '${{ github.event.repository.owner.login }}-${{ github.event.repository.name }}-${{ github.ref_name }}'
+          path: dist
 
       - name: Publish package to NPM
         run: yarn npm publish

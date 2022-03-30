@@ -1,1 +1,0 @@
-{"version":3,"file":"worker-thread.d.ts","sourceRoot":"","sources":["../../src/lib/worker-thread.ts"],"names":[],"mappings":";AACA,OAAO,EAAE,MAAM,EAAE,MAAM,gBAAgB,CAAC;AAaxC,wBAAsB,WAAW,CAAC,EAChC,IAAI,EACJ,IAAI,GACL,EAAE;IACD,IAAI,EAAE,MAAM,CAAC;IACb,IAAI,EAAE,SAAS,CAAC;CACjB,GAAG,OAAO,CAAC,MAAM,CAAC,CAYlB"}
