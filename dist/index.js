@@ -1543,9 +1543,6 @@ var import_async_exit_hook = __toESM(require_async_exit_hook(), 1);
 
 // src/middleware/exception-handling.ts
 var exceptionHandlingMiddleware = async (err, req, res, next) => {
-  const logger4 = new e();
-  const exception = new s(err.message, { cause: err });
-  logger4.exception(exception.toJSON());
   next();
 };
 
@@ -1564,12 +1561,15 @@ function configureExceptionHandling(server, listener) {
   server.use(exceptionHandlingMiddleware);
   logger3.info("Error handling middleware initialized.");
   server.on("error", (err) => {
+    console.error("ERROR:", err);
     const isManaged = err instanceof s;
     const exception = isManaged ? err : new v(err.name, { cause: err });
     logger3.exception(exception.toJSON());
     console.error("ERROR:", exception.toJSON());
   });
-  (0, import_async_exit_hook.default)(async () => {
+  (0, import_async_exit_hook.default)(async (error) => {
+    console.log("exitHook");
+    console.log("error", error);
     listener.close((err) => {
       if (err) {
         const isManaged = err instanceof s;

@@ -10,9 +10,9 @@ export const exceptionHandlingMiddleware: ErrorRequestHandler = async (
   res: Response,
   next: NextFunction,
 ) => {
-  const logger = new Logger();
-  const exception = new Exception(err.message, { cause: err });
-  logger.exception(exception.toJSON());
+  // const logger = new Logger();
+  // const exception = new Exception(err.message, { cause: err });
+  // logger.exception(exception.toJSON());
   // console.log(err.stack);
 
   // logException(err, {

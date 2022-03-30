@@ -30,6 +30,7 @@ export function configureExceptionHandling(
   logger.info('Error handling middleware initialized.');
 
   server.on('error', (err: any) => {
+    console.error('ERROR:', err);
     const isManaged = err instanceof Exception;
     const exception = isManaged
       ? err
@@ -40,7 +41,9 @@ export function configureExceptionHandling(
     console.error('ERROR:', exception.toJSON());
   });
 
-  exitHook(async () => {
+  exitHook(async error => {
+    console.log('exitHook');
+    console.log('error', error);
     listener.close(err => {
       if (err) {
         const isManaged = err instanceof Exception;
