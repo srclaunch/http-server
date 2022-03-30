@@ -114,7 +114,7 @@ export class HttpServer {
     this.server.use(
       cors({
         credentials: true,
-        origin: this.options.trustedOrigins?.[this.environment.id]?.[0],
+        origin: this.options.trustedOrigins?.[this.environment.id],
       }),
     );
 

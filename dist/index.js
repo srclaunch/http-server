@@ -1646,7 +1646,7 @@ var HttpServer = class {
     this.logger.info("Disabled Express x-powered-by header.");
     this.server.use((0, import_cors.default)({
       credentials: true,
-      origin: this.options.trustedOrigins?.[this.environment.id]?.[0]
+      origin: this.options.trustedOrigins?.[this.environment.id]
     }));
     this.logger.info("CORS enabled.");
   }
