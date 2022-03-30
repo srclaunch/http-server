@@ -114,29 +114,29 @@ export class HttpServer {
     this.server.use(
       cors({
         credentials: true,
-        origin: this.options.trustedOrigins?.[this.environment.id],
+        origin: this.options.trustedOrigins?.[this.environment.id]?.[0],
       }),
     );
 
-    this.server.use(
-      (req: Express.Request, res: Response, next: NextFunction) => {
-        if (this.options.trustedOrigins && this.environment?.id) {
-          const origins =
-            this.options.trustedOrigins?.[this.environment?.id] ?? [];
+    // this.server.use(
+    //   (req: Express.Request, res: Response, next: NextFunction) => {
+    //     if (this.options.trustedOrigins && this.environment?.id) {
+    //       const origins =
+    //         this.options.trustedOrigins?.[this.environment?.id] ?? [];
 
-          for (const origin of origins) {
-            this.logger.info(`Allowing access from origin ${origin}...`);
-            res.setHeader('Access-Control-Allow-Origin', origin);
-          }
-        }
+    //       for (const origin of origins) {
+    //         this.logger.info(`Allowing access from origin ${origin}...`);
+    //         res.setHeader('Access-Control-Allow-Origin', origin);
+    //       }
+    //     }
 
-        res.setHeader('Access-Control-Allow-Methods', '*');
-        res.setHeader('Access-Control-Allow-Headers', '*');
-        res.setHeader('Access-Control-Allow-Credentials', 'true');
+    //     res.setHeader('Access-Control-Allow-Methods', '*');
+    //     res.setHeader('Access-Control-Allow-Headers', '*');
+    //     res.setHeader('Access-Control-Allow-Credentials', 'true');
 
-        next();
-      },
-    );
+    //     next();
+    //   },
+    // );
 
     // server.use(allowCrossDomain);
 
