@@ -1,8 +1,5 @@
 {
   "extends": "@srclaunch/dx/tsconfig.json",
-  "compilerOptions": {
-    "types": ["node"]
-  },
   "include": ["src"],
   "exclude": ["src/tests"]
 }
