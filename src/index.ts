@@ -4,13 +4,13 @@ import {
   ProcessException,
 } from '@srclaunch/exceptions';
 import Logger from '@srclaunch/logger';
-import { Environment } from '@srclaunch/types';
 import { getEnvironment } from '@srclaunch/node-environment';
+import { Environment } from '@srclaunch/types';
 import compression from 'compression';
 import cors from 'cors';
 import express, { Express, NextFunction, Response } from 'express';
 import multer from 'multer';
-import http from 'http';
+import http from 'node:http';
 
 import authMiddleware from './middleware/auth-middleware';
 import { Endpoint } from './types/endpoint';
@@ -19,14 +19,14 @@ import { HealthcheckEndpoint, setupEndpoints } from './utils/endpoints';
 import { configureExceptionHandling } from './utils/exception-handling';
 
 export class HttpServer {
-  endpoints: Endpoint[] = [];
-  environment: Environment = getEnvironment();
-  exceptionsClient: ExceptionsClient;
+  readonly endpoints: readonly Endpoint[] = [];
+  readonly environment: Environment = getEnvironment();
+  readonly exceptionsClient: ExceptionsClient;
   listener?: http.Server;
-  logger: Logger;
+  readonly logger: Logger;
   name: string;
   server: Express;
-  options: ServerOptions = {
+  readonly options: ServerOptions = {
     port: 8080,
   };
 
@@ -35,9 +35,9 @@ export class HttpServer {
     name,
     options,
   }: {
-    endpoints: Endpoint[];
-    name: string;
-    options?: ServerOptions;
+    readonly endpoints: readonly Endpoint[];
+    readonly name: string;
+    readonly options?: ServerOptions;
   }) {
     this.logger = new Logger();
     this.server = express();
@@ -59,6 +59,7 @@ export class HttpServer {
 
     const multerStorage = multer.memoryStorage();
     const upload = multer({ storage: multerStorage }).any();
+
     this.server.use(upload);
 
     this.server.use(express.json());
@@ -110,20 +111,22 @@ export class HttpServer {
     this.server.use(
       cors({
         credentials: true,
-        origin:  this.options.trustedOrigins?.[this.environment.id]
-      })
+        origin: this.options.trustedOrigins?.[this.environment.id],
+      }),
     );
 
     this.server.use(
       (req: Express.Request, res: Response, next: NextFunction) => {
         if (this.options.trustedOrigins && this.environment?.id) {
-          const origins = this.options.trustedOrigins?.[this.environment?.id] ?? [];
+          const origins =
+            this.options.trustedOrigins?.[this.environment?.id] ?? [];
+
           for (const origin of origins) {
             this.logger.info(`Allowing access from origin ${origin}...`);
             res.setHeader('Access-Control-Allow-Origin', origin);
           }
         }
-    
+
         res.setHeader('Access-Control-Allow-Methods', '*');
         res.setHeader('Access-Control-Allow-Headers', '*');
         res.setHeader('Access-Control-Allow-Credentials', 'true');
@@ -131,7 +134,6 @@ export class HttpServer {
         next();
       },
     );
-
 
     // server.use(allowCrossDomain);
 
