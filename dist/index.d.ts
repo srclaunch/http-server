@@ -21,7 +21,7 @@ export declare class HttpServer {
         readonly options?: ServerOptions;
     });
     private configure;
-    listen(portArg?: number): void;
+    listen(portArg?: number): Promise<void>;
     private secure;
     gracefulExit(): Promise<void>;
 }

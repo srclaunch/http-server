@@ -188,9 +188,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@srclaunch/cli@npm:^0.1.83":
-  version: 0.1.83
-  resolution: "@srclaunch/cli@npm:0.1.83"
+"@srclaunch/cli@npm:^0.1.84":
+  version: 0.1.84
+  resolution: "@srclaunch/cli@npm:0.1.84"
   dependencies:
     "@srclaunch/exceptions": ^0.1.6
     add: ^2.0.6
@@ -212,7 +212,7 @@ __metadata:
     update-notifier: ^5.1.0
   bin:
     applab: dist/index.js
-  checksum: 581b41fefcf4e405f6a4c81e1e2f0a9a32d46a0aec45f3409141093e0306b876d4188fcef4f9f151c64ea937198ce8a3cf775b3ec86af3b94d028780cb2228ca
+  checksum: b95798bf0fff14883352f0376947c56384f8df91a213a041cd4016c1c13577dc38122244134a568d46d3599a299bf0a33ccad72e385afb54a5b205b982fc215d
   languageName: node
   linkType: hard
 
@@ -251,7 +251,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@srclaunch/http-server@workspace:."
   dependencies:
-    "@srclaunch/cli": ^0.1.83
+    "@srclaunch/cli": ^0.1.84
     "@srclaunch/dx": ^0.1.18
     "@srclaunch/exceptions": ^0.1.16
     "@srclaunch/logger": ^0.1.8

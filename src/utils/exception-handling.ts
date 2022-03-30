@@ -36,6 +36,8 @@ export function configureExceptionHandling(
       : new UnmanagedException(err.name, { cause: err });
 
     logger.exception(exception.toJSON());
+
+    console.error('ERROR:', exception.toJSON());
   });
 
   exitHook(async () => {

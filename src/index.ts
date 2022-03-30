@@ -87,7 +87,7 @@ export class HttpServer {
     this.logger.info('Server configured successfully.');
   }
 
-  public listen(portArg?: number): void {
+  public async listen(portArg?: number): Promise<void> {
     const port = portArg ?? this.options?.port ?? 8080;
 
     this.logger.info(
@@ -97,9 +97,9 @@ export class HttpServer {
     this.secure();
     this.configure();
 
-    this.listener = this.server.listen(port, () =>
-      this.logger.info(`⚡ Server listening on port ${port}!`),
-    );
+    this.listener = await this.server.listen(port, () => {
+      this.logger.info(`⚡ Server listening on port ${port}!`);
+    });
 
     configureExceptionHandling(this.server, this.listener);
   }

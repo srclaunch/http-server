@@ -1567,6 +1567,7 @@ function configureExceptionHandling(server, listener) {
     const isManaged = err instanceof s;
     const exception = isManaged ? err : new v(err.name, { cause: err });
     logger3.exception(exception.toJSON());
+    console.error("ERROR:", exception.toJSON());
   });
   (0, import_async_exit_hook.default)(async () => {
     listener.close((err) => {
@@ -1631,12 +1632,14 @@ var HttpServer = class {
     this.logger.info("\u2764\uFE0F  Healthcheck service started.");
     this.logger.info("Server configured successfully.");
   }
-  listen(portArg) {
+  async listen(portArg) {
     const port = portArg ?? this.options?.port ?? 8080;
     this.logger.info(`Starting server in "${this.environment.name}" environment...`);
     this.secure();
     this.configure();
-    this.listener = this.server.listen(port, () => this.logger.info(`\u26A1 Server listening on port ${port}!`));
+    this.listener = await this.server.listen(port, () => {
+      this.logger.info(`\u26A1 Server listening on port ${port}!`);
+    });
     configureExceptionHandling(this.server, this.listener);
   }
   secure() {
