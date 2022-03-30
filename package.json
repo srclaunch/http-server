@@ -30,6 +30,7 @@
     "build:applab": "applab build",
     "clean": "rm -fr ./dist",
     "git:push": "git push --follow-tags origin main",
+    "qr": "yarn build && git add . && git commit -m \"Quick release - patch\" && yarn release",
     "release": "yarn version:patch && yarn git:push",
     "test": "ava",
     "version:patch": "standard-version",
