@@ -97,9 +97,9 @@ export class HttpServer {
     this.secure();
     this.configure();
 
-    this.listener = await this.server.listen(port, () => {
-      this.logger.info(`⚡ Server listening on port ${port}!`);
-    });
+    this.listener = await this.server.listen(port);
+
+    this.logger.info(`⚡ Server listening on port ${port}!`);
 
     configureExceptionHandling(this.server, this.listener);
   }

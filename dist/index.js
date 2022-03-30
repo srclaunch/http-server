@@ -1637,9 +1637,8 @@ var HttpServer = class {
     this.logger.info(`Starting server in "${this.environment.name}" environment...`);
     this.secure();
     this.configure();
-    this.listener = await this.server.listen(port, () => {
-      this.logger.info(`\u26A1 Server listening on port ${port}!`);
-    });
+    this.listener = await this.server.listen(port);
+    this.logger.info(`\u26A1 Server listening on port ${port}!`);
     configureExceptionHandling(this.server, this.listener);
   }
   secure() {
