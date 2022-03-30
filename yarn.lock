@@ -255,7 +255,7 @@ __metadata:
     "@srclaunch/dx": ^0.1.18
     "@srclaunch/exceptions": ^0.1.16
     "@srclaunch/logger": ^0.1.8
-    "@srclaunch/node-environment": ^0.1.4
+    "@srclaunch/node-environment": ^0.1.7
     "@srclaunch/types": ^0.1.23
     "@types/async-exit-hook": ^2.0.0
     "@types/compression": ^1.7.2
@@ -334,10 +334,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@srclaunch/node-environment@npm:^0.1.4":
-  version: 0.1.4
-  resolution: "@srclaunch/node-environment@npm:0.1.4"
-  checksum: bc7b255a2e4d566201cd6c3b991389b3a4c1ab239f2dc3d10618b754769dcb357f594212fd1ffa0f7468720c146239848f47017e35b71840a71e6742ee164e8f
+"@srclaunch/node-environment@npm:^0.1.7":
+  version: 0.1.7
+  resolution: "@srclaunch/node-environment@npm:0.1.7"
+  checksum: b1846df6bfffb5fa50e05926fe310a7250567ea2a2e1f8f8866e1446e7355296597b1fd7d1ee984700de2b7d0aee21f0247f5b615906ac700af2b2d557cf9664
   languageName: node
   linkType: hard
 
