@@ -45,6 +45,9 @@ export class HttpServer {
     this.endpoints = endpoints;
     this.options = { ...this.options, ...options };
 
+    console.log('this.environment', this.environment);
+    console.log('this.config', this.options);
+
     this.exceptionsClient = new ExceptionsClient({
       processExceptionsHandler: async () => await this.gracefulExit(),
       processInteruptHandler: async () => await this.gracefulExit(),
