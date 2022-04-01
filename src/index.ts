@@ -78,7 +78,7 @@ export class HttpServer {
           ':method :url -> :status :req[x-request-id]  (:res[content-length]kb/:response-time ms)',
           // { stream },
         );
-        next();
+        return next();
       },
     );
     // this.server.use(getLoggerMiddleware());
@@ -147,7 +147,7 @@ export class HttpServer {
         res.setHeader('Access-Control-Allow-Headers', '*');
         res.setHeader('Access-Control-Allow-Credentials', 'true');
 
-        next();
+        return next();
       },
     );
 
