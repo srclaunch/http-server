@@ -13,6 +13,7 @@ import cors from 'cors';
 import express, { Express, NextFunction, Response } from 'express';
 import multer from 'multer';
 import http from 'node:http';
+import morgan from 'morgan';
 
 import authMiddleware from './middleware/auth-middleware';
 import { Endpoint } from './types/endpoint';
@@ -69,9 +70,18 @@ export class HttpServer {
     this.server.use(compression());
 
     // HTTP request Logging middleware
+    this.server.use(
+      (req: Express.Request, res: Response, next: NextFunction) => {
+        morgan(
+          ':method :url -> :status :req[x-request-id]  (:res[content-length]kb/:response-time ms)',
+          // { stream },
+        );
+        next();
+      },
+    );
     // this.server.use(getLoggerMiddleware());
 
-    this.logger.info('Added process listeners.');
+    // this.logger.info('Added process listeners.');
 
     this.server.use((req, res, next) => authMiddleware(req, res, next));
     this.logger.info('Authentication middleware setup');
