@@ -41,20 +41,20 @@ export function configureExceptionHandling(
     console.error('ERROR:', exception.toJSON());
   });
 
-  exitHook(error => {
-    console.log('exitHook');
-    console.log('error', error);
-    listener.close(err => {
-      if (err) {
-        const isManaged = err instanceof Exception;
-        const exception = isManaged
-          ? new Exception(err.message, { cause: err })
-          : new UnmanagedException(err.name, { cause: err });
+  // exitHook(error => {
+  //   console.log('exitHook');
+  //   console.log('error', error);
+  //   listener.close(err => {
+  //     if (err) {
+  //       const isManaged = err instanceof Exception;
+  //       const exception = isManaged
+  //         ? new Exception(err.message, { cause: err })
+  //         : new UnmanagedException(err.name, { cause: err });
 
-        logger.exception(exception.toJSON());
-      } else {
-        logger.info('HTTP server successfully closed');
-      }
-    });
-  });
+  //       logger.exception(exception.toJSON());
+  //     } else {
+  //       logger.info('HTTP server successfully closed');
+  //     }
+  //   });
+  // });
 }

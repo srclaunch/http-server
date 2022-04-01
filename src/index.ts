@@ -72,6 +72,8 @@ export class HttpServer {
     // HTTP request Logging middleware
     this.server.use(
       (req: Express.Request, res: Response, next: NextFunction) => {
+        console.log('req', req);
+
         morgan(
           ':method :url -> :status :req[x-request-id]  (:res[content-length]kb/:response-time ms)',
           // { stream },
