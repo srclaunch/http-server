@@ -113,12 +113,12 @@ export class HttpServer {
     // server.use(helmet());
     // this.logger.info('Initialized Helmet.');
 
-    this.server.use(
-      cors({
-        credentials: true,
-        origin: this.options.trustedOrigins?.[this.environment.id],
-      }),
-    );
+    // this.server.use(
+    //   cors({
+    //     credentials: true,
+    //     origin: this.options.trustedOrigins?.[this.environment.id],
+    //   }),
+    // );
 
     this.server.use(
       (req: Express.Request, res: Response, next: NextFunction) => {
