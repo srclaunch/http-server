@@ -1,5 +1,5 @@
 /// <reference types="node" />
-import { ExceptionsClient } from '@srclaunch/exceptions';
+import { ExceptionsClient, ProcessException, ProcessSigIntException, ProcessSigTermException } from '@srclaunch/exceptions';
 import Logger from '@srclaunch/logger';
 import { Environment } from '@srclaunch/types';
 import { Express } from 'express';
@@ -23,6 +23,6 @@ export declare class HttpServer {
     private configure;
     listen(portArg?: number): Promise<void>;
     private secure;
-    gracefulExit(): Promise<void>;
+    gracefulExit(error: ProcessException | ProcessSigIntException | ProcessSigTermException): Promise<void>;
 }
 //# sourceMappingURL=index.d.ts.map

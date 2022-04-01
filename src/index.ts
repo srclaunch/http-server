@@ -2,6 +2,8 @@ import {
   ExceptionsClient,
   KillProcessException,
   ProcessException,
+  ProcessSigIntException,
+  ProcessSigTermException,
 } from '@srclaunch/exceptions';
 import Logger from '@srclaunch/logger';
 import { getEnvironment } from '@srclaunch/node-environment';
@@ -45,13 +47,10 @@ export class HttpServer {
     this.endpoints = endpoints;
     this.options = { ...this.options, ...options };
 
-    console.log('this.environment', this.environment);
-    console.log('this.config', this.options);
-
     this.exceptionsClient = new ExceptionsClient({
-      processExceptionsHandler: async () => await this.gracefulExit(),
-      processInteruptHandler: async () => await this.gracefulExit(),
-      processTerminationHandler: async () => await this.gracefulExit(),
+      processExceptionsHandler: async err => await this.gracefulExit(err),
+      processInteruptHandler: async err => await this.gracefulExit(err),
+      processTerminationHandler: async err => await this.gracefulExit(err),
     });
   }
 
@@ -113,12 +112,12 @@ export class HttpServer {
     // server.use(helmet());
     // this.logger.info('Initialized Helmet.');
 
-    // this.server.use(
-    //   cors({
-    //     credentials: true,
-    //     origin: this.options.trustedOrigins?.[this.environment.id],
-    //   }),
-    // );
+    this.server.use(
+      cors({
+        credentials: true,
+        origin: this.options.trustedOrigins?.[this.environment.id],
+      }),
+    );
 
     this.server.use(
       (req: Express.Request, res: Response, next: NextFunction) => {
@@ -145,9 +144,13 @@ export class HttpServer {
     this.logger.info('CORS enabled.');
   }
 
-  public async gracefulExit(): Promise<void> {
-    this.logger.info(`Gracefully shutting down server...'} `);
+  public async gracefulExit(
+    error: ProcessException | ProcessSigIntException | ProcessSigTermException,
+  ): Promise<void> {
+    this.logger.info('Gracefully shutting down server...');
 
+    console.log('error in gracefulExit');
+    console.log(error);
     if (this.listener) {
       this.listener.close(err => {
         if (err) {

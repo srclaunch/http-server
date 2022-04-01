@@ -41,7 +41,7 @@ export function configureExceptionHandling(
     console.error('ERROR:', exception.toJSON());
   });
 
-  exitHook(async error => {
+  exitHook(error => {
     console.log('exitHook');
     console.log('error', error);
     listener.close(err => {
