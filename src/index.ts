@@ -21,7 +21,7 @@ import { configureExceptionHandling } from './utils/exception-handling';
 
 export class HttpServer {
   readonly endpoints: readonly Endpoint[] = [];
-  readonly environment: Environment = getEnvironment();
+  readonly environment: Environment;
   readonly exceptionsClient: ExceptionsClient;
   listener?: http.Server;
   readonly logger: Logger;
@@ -33,20 +33,24 @@ export class HttpServer {
 
   public constructor({
     endpoints,
+    environment,
     name,
     options = {},
   }: {
     readonly endpoints: readonly Endpoint[];
+    readonly environment: Environment;
     readonly name: string;
     readonly options?: ServerOptions;
   }) {
+    this.environment = environment;
     this.logger = new Logger({
-      environment: this.environment,
+      environment,
       ...(options?.loggerConfig ?? {}),
     });
     this.server = express();
     this.name = name;
     this.endpoints = endpoints;
+
     this.options = { ...this.options, ...options };
 
     this.exceptionsClient = new ExceptionsClient({
