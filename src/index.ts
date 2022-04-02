@@ -73,9 +73,9 @@ export class HttpServer {
     this.server.use(compression());
 
     // HTTP request Logging middleware
-    this.server.use((req, res, next) =>
-      loggerExpressMiddlware(this.logger, req, res, next),
-    );
+    // this.server.use((req, res, next) =>
+    //   loggerExpressMiddlware(this.logger, req, res, next),
+    // );
     this.logger.info('Added Logger middleware');
 
     this.server.use(authMiddleware);
