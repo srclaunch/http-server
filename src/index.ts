@@ -5,7 +5,7 @@ import {
   ProcessSigIntException,
   ProcessSigTermException,
 } from '@srclaunch/exceptions';
-import Logger from '@srclaunch/logger';
+import { Logger, loggerExpressMiddlware } from '@srclaunch/logger';
 import { getEnvironment } from '@srclaunch/node-environment';
 import { Environment } from '@srclaunch/types';
 import compression from 'compression';
@@ -13,8 +13,6 @@ import cors from 'cors';
 import express, { Express, NextFunction, Response } from 'express';
 import multer from 'multer';
 import http from 'node:http';
-import morgan from 'morgan';
-
 import authMiddleware from './middleware/auth-middleware';
 import { Endpoint } from './types/endpoint';
 import { ServerOptions } from './types/server';
@@ -42,7 +40,10 @@ export class HttpServer {
     readonly name: string;
     readonly options?: ServerOptions;
   }) {
-    this.logger = new Logger();
+    this.logger = new Logger({
+      environment: this.environment,
+      ...options?.loggerConfig,
+    });
     this.server = express();
     this.name = name;
     this.endpoints = endpoints;
@@ -70,22 +71,12 @@ export class HttpServer {
     this.server.use(compression());
 
     // HTTP request Logging middleware
-    this.server.use(
-      (req: Express.Request, res: Response, next: NextFunction) => {
-        console.log('req', req);
-
-        morgan(
-          ':method :url -> :status :req[x-request-id]  (:res[content-length]kb/:response-time ms)',
-          // { stream },
-        );
-        return next();
-      },
+    this.server.use((req, res, next) =>
+      loggerExpressMiddlware(this.logger, req, res, next),
     );
-    // this.server.use(getLoggerMiddleware());
+    this.logger.info('Added Logger middleware');
 
-    // this.logger.info('Added process listeners.');
-
-    this.server.use((req, res, next) => authMiddleware(req, res, next));
+    this.server.use(authMiddleware);
     this.logger.info('Authentication middleware setup');
 
     this.server = setupEndpoints({
@@ -93,9 +84,9 @@ export class HttpServer {
       endpoints: [...this.endpoints, HealthcheckEndpoint],
       server: this.server,
     });
-    this.logger.info('❤️  Healthcheck service started.');
+    this.logger.info('❤️  Healthcheck service started');
 
-    this.logger.info('Server configured successfully.');
+    this.logger.info('Server configured successfully');
   }
 
   public async listen(portArg?: number): Promise<void> {
@@ -109,7 +100,7 @@ export class HttpServer {
     this.configure();
 
     this.listener = this.server.listen(port, () => {
-      this.logger.info(`⚡ Server listening on port ${port}!`);
+      this.logger.info(`⚡ Server listening on port ${port}`);
 
       if (this.listener) {
         configureExceptionHandling(this.server, this.listener);
@@ -131,25 +122,25 @@ export class HttpServer {
       }),
     );
 
-    this.server.use(
-      (req: Express.Request, res: Response, next: NextFunction) => {
-        if (this.options.trustedOrigins && this.environment?.id) {
-          const origins =
-            this.options.trustedOrigins?.[this.environment?.id] ?? [];
+    // this.server.use(
+    //   (req: Express.Request, res: Response, next: NextFunction) => {
+    //     if (this.options.trustedOrigins && this.environment?.id) {
+    //       const origins =
+    //         this.options.trustedOrigins?.[this.environment?.id] ?? [];
 
-          for (const origin of origins) {
-            this.logger.info(`Allowing access from origin ${origin}...`);
-            res.setHeader('Access-Control-Allow-Origin', origin);
-          }
-        }
+    //       for (const origin of origins) {
+    //         this.logger.info(`Allowing access from origin ${origin}...`);
+    //         res.setHeader('Access-Control-Allow-Origin', origin);
+    //       }
+    //     }
 
-        res.setHeader('Access-Control-Allow-Methods', '*');
-        res.setHeader('Access-Control-Allow-Headers', '*');
-        res.setHeader('Access-Control-Allow-Credentials', 'true');
+    //     res.setHeader('Access-Control-Allow-Methods', '*');
+    //     res.setHeader('Access-Control-Allow-Headers', '*');
+    //     res.setHeader('Access-Control-Allow-Credentials', 'true');
 
-        return next();
-      },
-    );
+    //     return next();
+    //   },
+    // );
 
     // server.use(allowCrossDomain);
 

@@ -1,5 +1,4 @@
 import { Exception } from '@srclaunch/exceptions';
-import Logger from '@srclaunch/logger';
 import { ErrorRequestHandler, NextFunction, Request, Response } from 'express';
 
 // const ExceptionResponseHandler = () => {};

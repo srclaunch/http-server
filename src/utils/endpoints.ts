@@ -1,5 +1,5 @@
 import { ExceptionRemediator } from '@srclaunch/exceptions';
-import Logger from '@srclaunch/logger';
+import { Logger } from '@srclaunch/logger';
 import { HttpRequestMethod } from '@srclaunch/types';
 import { Express, Request, Response } from 'express';
 

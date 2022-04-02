@@ -3,7 +3,7 @@
   "description": "Command line tools used by AppLab applications and services",
   "author": "Steven Bennett <steven@srclaunch.com>",
   "license": "ISC",
-  "version": "0.1.84",
+  "version": "0.1.85",
   "engines": {
     "node": ">=16"
   },

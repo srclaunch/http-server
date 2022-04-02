@@ -1,6 +1,6 @@
 /// <reference types="node" />
 import { ExceptionsClient, ProcessException, ProcessSigIntException, ProcessSigTermException } from '@srclaunch/exceptions';
-import Logger from '@srclaunch/logger';
+import { Logger } from '@srclaunch/logger';
 import { Environment } from '@srclaunch/types';
 import { Express } from 'express';
 import http from 'node:http';

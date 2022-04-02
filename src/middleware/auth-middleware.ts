@@ -3,7 +3,7 @@ import {
   Exception,
   UnmanagedException,
 } from '@srclaunch/exceptions';
-import Logger from '@srclaunch/logger';
+import { Logger } from '@srclaunch/logger';
 // import { getEnvironmentVariable } from '@srclaunch/environment';
 import { NextFunction, Request, Response } from 'express';
 

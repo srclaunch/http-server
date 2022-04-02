@@ -1,5 +1,5 @@
 import { Exception, UnmanagedException } from '@srclaunch/exceptions';
-import Logger from '@srclaunch/logger';
+import { Logger } from '@srclaunch/logger';
 import exitHook from 'async-exit-hook';
 import { Express, NextFunction, Request, Response } from 'express';
 import http from 'http';

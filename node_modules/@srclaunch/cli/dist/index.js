@@ -617,10 +617,10 @@ ${A}
 }
 `}function a0(e,o=!1){let A=` id: string;
   `;for(let l of[...Object.entries(e)].sort((m,g)=>m[0].localeCompare(g[0])))A+=`  ${l[0]}${l[1].required?"":"?"}: ${he(l[1].type)} ${l[1].required?"":"| null"};
-`;return A}function i0(e){let o=` declare readonly id!: string;
+`;return A}function i0(e){let o=` declare readonly id: string;
 
   public static associate: (models: Record<string, ModelStatic<Model>>) => void;
-`;for(let A of[...Object.entries(e.fields)].sort((l,m)=>l[0].localeCompare(m[0])))o+=`  declare ${A[0]}!: ${he(A[1].type)}${A[1].required?"":" | null"};
+`;for(let A of[...Object.entries(e.fields)].sort((l,m)=>l[0].localeCompare(m[0])))o+=`  declare ${A[0]}: ${he(A[1].type)}${A[1].required?"":" | null"};
 `;return o}function n0(e,o){let A=Xo(o.type);return e?`
   ${e}: {
         allowNull: ${o?.required?"false":"true"},
