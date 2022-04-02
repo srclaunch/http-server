@@ -15,9 +15,10 @@ export declare class HttpServer {
     name: string;
     server: Express;
     readonly options: ServerOptions;
-    constructor({ endpoints, environment, name, options, }: {
+    constructor({ endpoints, environment, logger, name, options, }: {
         readonly endpoints: readonly Endpoint[];
         readonly environment: Environment;
+        readonly logger?: Logger;
         readonly name: string;
         readonly options?: ServerOptions;
     });

@@ -34,19 +34,23 @@ export class HttpServer {
   public constructor({
     endpoints,
     environment,
+    logger,
     name,
     options = {},
   }: {
     readonly endpoints: readonly Endpoint[];
     readonly environment: Environment;
+    readonly logger?: Logger;
     readonly name: string;
     readonly options?: ServerOptions;
   }) {
     this.environment = environment;
-    this.logger = new Logger({
-      environment,
-      ...(options?.loggerConfig ?? {}),
-    });
+    this.logger =
+      logger ??
+      new Logger({
+        environment,
+        ...(options?.loggerConfig ?? {}),
+      });
     this.server = express();
     this.name = name;
     this.endpoints = endpoints;
