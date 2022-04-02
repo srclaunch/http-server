@@ -82,8 +82,8 @@
     "typescript": "^4.6.3"
   },
   "dependencies": {
-    "@srclaunch/exceptions": "^0.1.21",
-    "@srclaunch/logger": "^0.1.22",
+    "@srclaunch/exceptions": "^0.1.22",
+    "@srclaunch/logger": "^0.1.23",
     "@srclaunch/node-environment": "^0.1.7",
     "async-exit-hook": "^2.0.1",
     "compression": "^1.7.4",
