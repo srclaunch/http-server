@@ -188,9 +188,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@srclaunch/cli@npm:^0.1.91":
-  version: 0.1.91
-  resolution: "@srclaunch/cli@npm:0.1.91"
+"@srclaunch/cli@npm:^0.1.92":
+  version: 0.1.92
+  resolution: "@srclaunch/cli@npm:0.1.92"
   dependencies:
     "@srclaunch/exceptions": ^0.1.19
     add: ^2.0.6
@@ -212,7 +212,7 @@ __metadata:
     update-notifier: ^5.1.0
   bin:
     applab: dist/index.js
-  checksum: 780902c57ceb6922f74f794f1bd49de5d6ff050424e7e1845d7bbc1212768f06616590ba3858d5a6e288085b3ee475cd9e0a924f8c6b2d810be5dc4d78303736
+  checksum: c044dda62734f55a4dfe110da847dc93786fc4cd69201f67bd010f6414989a7984ccb8501e60ca3dfc89e83cda7581a52ce3749d9f59d2531bf0abc6668abd7a
   languageName: node
   linkType: hard
 
@@ -235,15 +235,15 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@srclaunch/exceptions@npm:^0.1.20":
-  version: 0.1.20
-  resolution: "@srclaunch/exceptions@npm:0.1.20"
+"@srclaunch/exceptions@npm:^0.1.21":
+  version: 0.1.21
+  resolution: "@srclaunch/exceptions@npm:0.1.21"
   dependencies:
-    "@srclaunch/logger": ^0.1.21
+    "@srclaunch/logger": ^0.1.22
     luxon: ^2.3.1
     nanoid: ^3.3.2
     serialize-error: ^9.1.1
-  checksum: f21d17890b1ea7e719d311f9e18760f254cb63746ee197e80ed84d9952d40b00cab6a0fc774d5b51a6112f8c72af4baaf127edaead6924dfe3927bfa2796f979
+  checksum: a44fd4af39f4b40217a03c877d900c312294aae35adfb50968f61344f5e6ecdcf8ec6c9db72f6b5f6569b9bd62bb94ba81ec3a7d6d5107936f699e2d26d3d9b7
   languageName: node
   linkType: hard
 
@@ -251,10 +251,10 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@srclaunch/http-server@workspace:."
   dependencies:
-    "@srclaunch/cli": ^0.1.91
+    "@srclaunch/cli": ^0.1.92
     "@srclaunch/dx": ^0.1.18
-    "@srclaunch/exceptions": ^0.1.20
-    "@srclaunch/logger": ^0.1.21
+    "@srclaunch/exceptions": ^0.1.21
+    "@srclaunch/logger": ^0.1.22
     "@srclaunch/node-environment": ^0.1.7
     "@srclaunch/types": ^0.1.28
     "@types/async-exit-hook": ^2.0.0
@@ -317,14 +317,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@srclaunch/logger@npm:^0.1.21":
-  version: 0.1.21
-  resolution: "@srclaunch/logger@npm:0.1.21"
+"@srclaunch/logger@npm:^0.1.22":
+  version: 0.1.22
+  resolution: "@srclaunch/logger@npm:0.1.22"
   dependencies:
     chalk: ^5.0.1
     luxon: ^2.3.1
     nanoid: ^3.3.2
-  checksum: b74924336ab5ea3a15bcd4ca4d1c696224242c8dea9b29838a4e2392724a1f6c669219b3cba86b0797172d43875c819522ad708a371b4ee271ded786dfec0c46
+  checksum: 986059741daccfdf4ee3401298af88733db8c02131bacd1f0981f4d772073872df76317ff533e7927d342e309a8826ce7c769772eaf6c49682faebb308a07d84
   languageName: node
   linkType: hard
 

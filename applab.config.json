@@ -7,7 +7,13 @@
       "bundle": true,
       "codeSplitting": true,
       "define": {},
-      "excludeLibs": ["compression", "express", "multer"],
+      "excludeLibs": [
+        "@srclaunch/exceptions",
+        "@srclaunch/logger",
+        "compression",
+        "express",
+        "multer"
+      ],
       "format": "esm",
       "inputScripts": ["src/index.ts"],
       "minify": true,
@@ -23,7 +29,13 @@
       "buildTypes": true,
       "bundle": true,
       "define": {},
-      "excludeLibs": ["compression", "express", "multer"],
+      "excludeLibs": [
+        "@srclaunch/exceptions",
+        "@srclaunch/logger",
+        "compression",
+        "express",
+        "multer"
+      ],
       "format": "cjs",
       "inputScripts": ["src/index.ts"],
       "minify": true,
