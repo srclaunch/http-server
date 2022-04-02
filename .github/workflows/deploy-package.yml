@@ -45,5 +45,6 @@ jobs:
 
       - name: Run tests
         run: yarn test
+
       - name: Publish package to NPM
         run: yarn npm publish
