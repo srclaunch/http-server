@@ -223,15 +223,15 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@srclaunch/exceptions@npm:^0.1.16":
-  version: 0.1.16
-  resolution: "@srclaunch/exceptions@npm:0.1.16"
+"@srclaunch/exceptions@npm:^0.1.19":
+  version: 0.1.19
+  resolution: "@srclaunch/exceptions@npm:0.1.19"
   dependencies:
-    "@srclaunch/logger": ^0.1.8
+    "@srclaunch/logger": ^0.1.19
     luxon: ^2.3.1
     nanoid: ^3.3.2
     serialize-error: ^9.1.1
-  checksum: 2a5a049bf2b2d8b464d57641ddde098563c37bd7b89f7ed86f2d9d625e9953237763f359387e57132b015aa05aeda83ae86990ebf5b5708da9291e7109c9f16e
+  checksum: fb76352b495b33ebe61702b5d12fd61211b7fc5f7a3b1b01f360591a5fba2a0e4bf3ea844e2f81d51c527e5b25f6528274581e5c39a9ee7fc0fe175cb4f227a1
   languageName: node
   linkType: hard
 
@@ -253,10 +253,10 @@ __metadata:
   dependencies:
     "@srclaunch/cli": ^0.1.85
     "@srclaunch/dx": ^0.1.18
-    "@srclaunch/exceptions": ^0.1.16
-    "@srclaunch/logger": ^0.1.13
+    "@srclaunch/exceptions": ^0.1.19
+    "@srclaunch/logger": ^0.1.19
     "@srclaunch/node-environment": ^0.1.7
-    "@srclaunch/types": ^0.1.27
+    "@srclaunch/types": ^0.1.28
     "@types/async-exit-hook": ^2.0.0
     "@types/compression": ^1.7.2
     "@types/cors": ^2.8.12
@@ -306,14 +306,14 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@srclaunch/logger@npm:^0.1.13":
-  version: 0.1.13
-  resolution: "@srclaunch/logger@npm:0.1.13"
+"@srclaunch/logger@npm:^0.1.19":
+  version: 0.1.19
+  resolution: "@srclaunch/logger@npm:0.1.19"
   dependencies:
     chalk: ^5.0.1
     luxon: ^2.3.1
     nanoid: ^3.3.2
-  checksum: d0eb8d9e6c6fa11b0e5e85eab95ccb290202e52df29fa3ce64eb946acf8ce6bf04f39a21530abbacf32a05dfb6f64f5ee21165d0d51e6eca67eb6e397f6c119b
+  checksum: 75c1254ccbcad6add3d746018d50ebc30b4702fe45e14a5877c2068e194d66ab9eec1b1b4ab7f1aefdcbd02973aadbc2bd82bde42715fb8cb8bd6f740d4f2362
   languageName: node
   linkType: hard
 
@@ -331,19 +331,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@srclaunch/logger@npm:^0.1.8":
-  version: 0.1.8
-  resolution: "@srclaunch/logger@npm:0.1.8"
-  dependencies:
-    colors: ^1.4.0
-    luxon: ^2.3.1
-    nanoid: ^3.3.2
-  peerDependencies:
-    ansi-styles: "*"
-  checksum: 73cbc933e526b1a9a0aa26cdb57061a1af4347597b516f165013b6324ddc3f2dccdef1655f6134ad1c24a15a5dbcbecf1568bec771551addff87637a767e64b8
-  languageName: node
-  linkType: hard
-
 "@srclaunch/node-environment@npm:^0.1.7":
   version: 0.1.7
   resolution: "@srclaunch/node-environment@npm:0.1.7"
@@ -351,10 +338,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@srclaunch/types@npm:^0.1.27":
-  version: 0.1.27
-  resolution: "@srclaunch/types@npm:0.1.27"
-  checksum: a53aae68b93ebc15c3075f967b4a68eca0d970ade2270a07578c60119d47b89c9bceae51da5778ca03f527d924ea8134aa9d5e026608b610b21db5af86dd1796
+"@srclaunch/types@npm:^0.1.28":
+  version: 0.1.28
+  resolution: "@srclaunch/types@npm:0.1.28"
+  checksum: de0cf5cf44c7252cc13a08d00e3ebc7a806d7a1e57cb87f8953a099fa8e4b35fdc24f8b266a95c9f723e68036667f8e87f1a59da21abedad2278a3ad57011cde
   languageName: node
   linkType: hard
 

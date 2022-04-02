@@ -1,7 +1,7 @@
-import { ExceptionCode } from '../types/exception.js';
-import { Exception } from './exception.js';
+import { ExceptionCode } from '../types/exception';
+import { Exception } from './exception';
 export declare const ExceptionMap: {
-    [code: number]: typeof Exception;
+    readonly [code: number]: typeof Exception;
 };
 export declare function getExceptionInstance(code: ExceptionCode): typeof Exception | undefined;
 //# sourceMappingURL=exceptions.d.ts.map

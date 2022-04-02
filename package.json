@@ -39,7 +39,7 @@
   "devDependencies": {
     "@srclaunch/cli": "^0.1.85",
     "@srclaunch/dx": "^0.1.18",
-    "@srclaunch/types": "^0.1.27",
+    "@srclaunch/types": "^0.1.28",
     "@types/async-exit-hook": "^2.0.0",
     "@types/compression": "^1.7.2",
     "@types/cors": "^2.8.12",
@@ -82,8 +82,8 @@
     "typescript": "^4.6.3"
   },
   "dependencies": {
-    "@srclaunch/exceptions": "^0.1.16",
-    "@srclaunch/logger": "^0.1.13",
+    "@srclaunch/exceptions": "^0.1.19",
+    "@srclaunch/logger": "^0.1.19",
     "@srclaunch/node-environment": "^0.1.7",
     "async-exit-hook": "^2.0.1",
     "compression": "^1.7.4",

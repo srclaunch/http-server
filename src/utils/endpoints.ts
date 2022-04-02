@@ -1,7 +1,7 @@
-import { ExceptionRemediator } from '@srclaunch/exceptions';
+import { Exception, ExceptionRemediator } from '@srclaunch/exceptions';
 import { Logger } from '@srclaunch/logger';
 import { HttpRequestMethod } from '@srclaunch/types';
-import { Express, Request, Response } from 'express';
+import { Express, NextFunction, Request, Response } from 'express';
 
 import { Endpoint } from '../types/endpoint';
 
@@ -25,13 +25,16 @@ const exceptionWrapper = async (
   try {
     return await cb(req, res);
   } catch (err: any) {
-    // logger.exception(`Caught Exception ${err.name}`, err, {
-    //   tags: {
-    //     file: 'utils/endpoints.js',
-    //     func: 'exceptionWrapper()',
-    //     type: 'CaughtException',
-    //   },
-    // });
+    const exception = new Exception(`Caught Exception ${err.name}`, {
+      cause: err,
+      tags: {
+        file: 'utils/endpoints.js',
+        func: 'exceptionWrapper()',
+        type: 'CaughtException',
+      },
+    });
+
+    logger.exception(exception);
 
     return remediator.handleException(err, { res });
   }

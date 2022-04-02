@@ -31,7 +31,7 @@ export class HttpServer {
     port: 8080,
   };
 
-  constructor({
+  public constructor({
     endpoints,
     name,
     options,
@@ -50,9 +50,11 @@ export class HttpServer {
     this.options = { ...this.options, ...options };
 
     this.exceptionsClient = new ExceptionsClient({
-      processExceptionsHandler: async err => await this.gracefulExit(err),
-      processInteruptHandler: async err => await this.gracefulExit(err),
-      processTerminationHandler: async err => await this.gracefulExit(err),
+      node: {
+        exceptionsHandler: async err => await this.gracefulExit(err),
+        interuptHandler: async err => await this.gracefulExit(err),
+        terminationHandler: async err => await this.gracefulExit(err),
+      },
     });
   }
 

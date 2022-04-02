@@ -43,5 +43,7 @@ jobs:
           name: '${{ github.event.repository.owner.login }}-${{ github.event.repository.name }}-${{ github.ref_name }}'
           path: dist
 
+      - name: Run tests
+        run: yarn test
       - name: Publish package to NPM
         run: yarn npm publish
