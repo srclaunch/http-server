@@ -7,9 +7,9 @@ export declare class Logger {
     analytics(props: AnalyticsEventProps): void;
     critical(props: CriticalEventProps): void;
     debug(props: DebugEventProps): void;
-    exception(props: ExceptionEventProps): Promise<void>;
+    exception(props: ExceptionEventProps): void;
     http(props: HttpEventProps): void;
-    info(props: InfoEventProps): Promise<void>;
+    info(props: InfoEventProps): void;
     warning(props: WarningEventProps): void;
     private getCommonProps;
     constructor(config?: LoggerConfig);
