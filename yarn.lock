@@ -235,15 +235,15 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@srclaunch/exceptions@npm:^0.1.26":
-  version: 0.1.26
-  resolution: "@srclaunch/exceptions@npm:0.1.26"
+"@srclaunch/exceptions@npm:^0.1.28":
+  version: 0.1.28
+  resolution: "@srclaunch/exceptions@npm:0.1.28"
   dependencies:
-    "@srclaunch/logger": ^0.1.26
+    "@srclaunch/logger": ^0.1.27
     luxon: ^2.3.1
     nanoid: ^3.3.2
     serialize-error: ^9.1.1
-  checksum: ad156bf8690859884e98a6f786ff51f7f9fee1fd3220883fab8a3427c53eff2510c28298c4e4d64ff558213819ed108daaa981f060fef72c9312fafc4d02fe73
+  checksum: 9fdceee86a54b4e02e5e8d8fc27d0e6f03d8c561dedfd8eb65d197d26f3a480c27d4e4ab285e64958accb00ca2084751fe72950d8345ef9cb5dd8608d0ad815c
   languageName: node
   linkType: hard
 
@@ -253,8 +253,8 @@ __metadata:
   dependencies:
     "@srclaunch/cli": ^0.1.92
     "@srclaunch/dx": ^0.1.18
-    "@srclaunch/exceptions": ^0.1.26
-    "@srclaunch/logger": ^0.1.26
+    "@srclaunch/exceptions": ^0.1.28
+    "@srclaunch/logger": ^0.1.27
     "@srclaunch/node-environment": ^0.1.7
     "@srclaunch/types": ^0.1.28
     "@types/async-exit-hook": ^2.0.0
@@ -317,14 +317,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@srclaunch/logger@npm:^0.1.26":
-  version: 0.1.26
-  resolution: "@srclaunch/logger@npm:0.1.26"
+"@srclaunch/logger@npm:^0.1.27":
+  version: 0.1.27
+  resolution: "@srclaunch/logger@npm:0.1.27"
   dependencies:
     chalk: ^5.0.1
     luxon: ^2.3.1
     nanoid: ^3.3.2
-  checksum: 93a27f4a89c068947b2472e7489cc1f05aa0225e6fe99fa2f9c25c032e62278b024c6a270479bff76e4f2470a27dd994a9a8060fd346f01cf346e546c04f9d4c
+  checksum: ab402bc9d768bec1bd352eb797a7eada15cd6dff6451ee70d16d60ee0c2d6ac8c24ed85ff520214fd54b7bff085ef424682bfa5cfb2b5f0f8117695f6fda5667
   languageName: node
   linkType: hard
 

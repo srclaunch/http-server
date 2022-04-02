@@ -1,4 +1,5 @@
 import { HttpRequest, HttpResponse, ISO8601String, Model, ModelField } from '@srclaunch/types';
+import { ExceptionObject } from '@srclaunch/exceptions';
 declare type CommonEventProps = {
     readonly created: ISO8601String;
     readonly environment: string;
@@ -13,7 +14,7 @@ declare type UserProps = {
     readonly phone?: string;
     readonly province?: string;
 };
-declare type CommonExceptionProps = {};
+export declare type CommonExceptionProps = ExceptionObject;
 export declare type CriticalEventProps = CommonExceptionProps;
 export declare type DataPointEventProps = CommonEventProps & {
     readonly model: {

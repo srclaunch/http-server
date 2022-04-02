@@ -20,7 +20,6 @@
     {
       "buildDir": "dist",
       "buildFile": "index.cjs.js",
-      "buildTypes": true,
       "bundle": true,
       "define": {},
       "excludeLibs": ["chalk", "compression", "express", "multer", "nanoid"],
@@ -30,8 +29,7 @@
       "platform": "node",
       "sourceMap": true,
       "target": "es2015",
-      "treeShaking": true,
-      "tsconfigPath": "tsconfig.json"
+      "treeShaking": true
     }
   ]
 }

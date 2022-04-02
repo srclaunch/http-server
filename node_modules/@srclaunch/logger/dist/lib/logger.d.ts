@@ -4,6 +4,7 @@ import { LoggerConfig } from '../types/index';
 export declare class Logger {
     private readonly level;
     readonly environment?: Environment;
+    constructor(config?: LoggerConfig);
     analytics(props: AnalyticsEventProps): void;
     critical(props: CriticalEventProps): void;
     debug(props: DebugEventProps): void;
@@ -12,6 +13,5 @@ export declare class Logger {
     info(props: InfoEventProps): void;
     warning(props: WarningEventProps): void;
     private getCommonProps;
-    constructor(config?: LoggerConfig);
 }
 //# sourceMappingURL=logger.d.ts.map

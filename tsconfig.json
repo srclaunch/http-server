@@ -1,5 +1,8 @@
 {
   "extends": "@srclaunch/dx/tsconfig.json",
+  "compilerOptions": {
+    "rootDir": "./src"
+  },
   "include": ["src"],
   "exclude": ["src/tests"]
 }
