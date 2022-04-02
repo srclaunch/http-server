@@ -34,7 +34,7 @@ const exceptionWrapper = async (
       },
     });
 
-    logger.exception(exception);
+    logger.exception(exception.toJSON());
 
     return remediator.handleException(err, { res });
   }

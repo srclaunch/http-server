@@ -163,7 +163,10 @@ export class HttpServer {
     this.logger.info('Gracefully shutting down server...');
 
     console.log('error in gracefulExit');
-    console.log(error);
+    console.log(error.name);
+    console.log(error.message);
+    console.log(error.cause);
+    console.log(error.cause?.name);
     if (this.listener) {
       this.listener.close(err => {
         if (err) {
