@@ -214,11 +214,12 @@ export class HttpServer {
       if (this.options.trustedOrigins && this.environment?.id) {
         const origins =
           this.options.trustedOrigins?.[this.environment?.id] ?? [];
+        this.logger.info(`Allowed origins: [${origins.join(', ')}]`);
 
         const origin = origins.find(o => o === req.get('origin'));
 
         if (origin) {
-          this.logger.info(`Allowing access from origin ${origin}...`);
+          this.logger.info(`Allowing access from origin '${origin}'...`);
           res.setHeader('Access-Control-Allow-Origin', origin);
         }
       }
