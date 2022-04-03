@@ -57,13 +57,14 @@ export async function setupEndpoints({
       async (req: Request, res: Response) =>
         await exceptionWrapper(req, res, endpoint.handler),
     );
+    express.options(
+      `${basePath}${endpoint.route}`,
+      async (req: Request, res: Response) => res.sendStatus(200),
+    );
   }
 
-  express[HttpRequestMethod.Get](
-    '/healthcheck',
-    async (req: Request, res: Response) =>
-      await exceptionWrapper(req, res, HealthcheckEndpoint.handler),
-  );
+  express[HttpRequestMethod.Get]('/healthcheck', HealthcheckEndpoint.handler);
+  express.options('/healthcheck', (req, res) => res.sendStatus(200));
 
   return express;
 }
