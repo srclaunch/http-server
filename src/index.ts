@@ -231,7 +231,7 @@ export class HttpServer {
         corsOptions = {};
       }
 
-      return cors(corsOptions);
+      cors(corsOptions);
     });
 
     // server.use(allowCrossDomain);
