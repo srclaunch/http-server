@@ -232,6 +232,7 @@ export class HttpServer {
       }
 
       cors(corsOptions);
+      next();
     });
 
     // server.use(allowCrossDomain);
