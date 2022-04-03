@@ -224,19 +224,14 @@ export class HttpServer {
             credentials: true,
             origin,
             methods: '*',
-            allowedHeaders: ['Content-Type', 'Authorization', 'X-Request-Id'],
+            allowedHeaders: '*',
           };
         }
       } else {
-        corsOptions = {
-          credentials: true,
-          origin,
-          methods: '*',
-          allowedHeaders: ['Content-Type', 'Authorization', 'X-Request-Id'],
-        };
+        corsOptions = {};
       }
 
-      return cors(corsOptions)(req, res, next);
+      return cors(corsOptions);
     });
 
     // server.use(allowCrossDomain);
