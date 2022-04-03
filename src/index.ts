@@ -203,14 +203,10 @@ export class HttpServer {
     // this.logger.info('Initialized Helmet.');
 
     this.logger.info('Configuring CORS headers');
-    // this.express.use(
-    //   cors({
-    //     credentials: true,
-    //     origin: this.options.trustedOrigins?.[this.environment.id],
-    //   }),
-    // );
 
     this.express.use((req: Request, res: Response, next: NextFunction) => {
+      let corsOptions = {};
+
       if (this.options.trustedOrigins && this.environment?.id) {
         const origins =
           this.options.trustedOrigins?.[this.environment?.id] ?? [];
@@ -223,14 +219,24 @@ export class HttpServer {
         if (origin) {
           this.logger.info(`Allowing access from origin '${origin}'...`);
           res.setHeader('Access-Control-Allow-Origin', origin);
+
+          corsOptions = {
+            credentials: true,
+            origin,
+            methods: '*',
+            allowedHeaders: ['Content-Type', 'Authorization', 'X-Request-Id'],
+          };
         }
+      } else {
+        corsOptions = {
+          credentials: true,
+          origin,
+          methods: '*',
+          allowedHeaders: ['Content-Type', 'Authorization', 'X-Request-Id'],
+        };
       }
 
-      res.setHeader('Access-Control-Allow-Methods', '*');
-      res.setHeader('Access-Control-Allow-Headers', '*');
-      res.setHeader('Access-Control-Allow-Credentials', 'true');
-
-      next();
+      return cors(corsOptions)(req, res, next);
     });
 
     // server.use(allowCrossDomain);
