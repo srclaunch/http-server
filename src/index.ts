@@ -89,7 +89,7 @@ export class HttpServer {
       express: this.express,
     });
 
-    this.listener = this.server.listen(port, () => {
+    this.listener = await this.server.listen(port, () => {
       this.logger.info(
         `❤️ Healthcheck endpoint listening at '${HealthcheckEndpoint.route}'`,
       );
