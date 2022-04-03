@@ -218,6 +218,8 @@ export class HttpServer {
 
         const origin = origins.find(o => o === req.get('origin'));
 
+        this.logger.info(`Whitelisted origin: ${origin}`);
+
         if (origin) {
           this.logger.info(`Allowing access from origin '${origin}'...`);
           res.setHeader('Access-Control-Allow-Origin', origin);
