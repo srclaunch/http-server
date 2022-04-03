@@ -3,7 +3,7 @@
   "description": "Simple API wrapper around Express server",
   "author": "Steven Bennett <steven@srclaunch.com>",
   "license": "MIT",
-  "version": "0.1.70",
+  "version": "0.1.71",
   "engines": {
     "node": ">=16"
   },
