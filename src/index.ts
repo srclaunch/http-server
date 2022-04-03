@@ -223,12 +223,15 @@ export class HttpServer {
           corsOptions = {
             credentials: true,
             origin,
-            methods: '*',
-            allowedHeaders: '*',
+            methods: ['DELETE', 'GET', 'PATCH', 'POST', 'PUT', 'OPTIONS'],
+            allowedHeaders: [
+              'Content-Type',
+              'Authorization',
+              'X-Requested-With',
+              'X-Request-Id',
+            ],
           };
         }
-      } else {
-        corsOptions = {};
       }
 
       cors(corsOptions);
