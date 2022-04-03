@@ -204,39 +204,30 @@ export class HttpServer {
 
     this.logger.info('Configuring CORS headers');
 
-    this.express.use((req: Request, res: Response, next: NextFunction) => {
-      let corsOptions = {};
-
-      if (this.options.trustedOrigins && this.environment?.id) {
-        const origins =
-          this.options.trustedOrigins?.[this.environment?.id] ?? [];
-        this.logger.info(`Allowed origins: [${origins.join(', ')}]`);
-
-        const origin = origins.find(o => o === req.get('origin'));
-
-        this.logger.info(`Whitelisted origin: ${origin}`);
-
-        if (origin) {
-          this.logger.info(`Allowing access from origin '${origin}'...`);
-          res.setHeader('Access-Control-Allow-Origin', origin);
-
-          corsOptions = {
-            credentials: true,
-            origin,
-            methods: ['DELETE', 'GET', 'PATCH', 'POST', 'PUT', 'OPTIONS'],
-            allowedHeaders: [
-              'Content-Type',
-              'Authorization',
-              'X-Requested-With',
-              'X-Request-Id',
-            ],
-          };
-        }
-      }
-
-      cors(corsOptions);
-      next();
-    });
+    this.express.use(
+      cors({
+        allowedHeaders: [
+          'Content-Type',
+          'Authorization',
+          'X-Requested-With',
+          'X-Request-Id',
+        ],
+        credentials: true,
+        methods: ['DELETE', 'GET', 'PATCH', 'POST', 'PUT', 'OPTIONS'],
+        origin: (origin, callback) => {
+          if (
+            origin &&
+            this.options.trustedOrigins?.[this.environment?.id]?.includes(
+              origin,
+            )
+          ) {
+            callback(null, true);
+          } else {
+            callback(new Error('Not allowed by CORS'));
+          }
+        },
+      }),
+    );
 
     // server.use(allowCrossDomain);
   }
