@@ -83,7 +83,7 @@ export class HttpServer {
 
     this.listener = this.server.listen(port, () => {
       this.logger.info(
-        `❤️ Healthcheck service started at /${this.name}${HealthcheckEndpoint.route}`,
+        `❤️ Healthcheck endpoint listening at '${HealthcheckEndpoint.route}'`,
       );
 
       this.logger.info(`🚀 Server listening on port ${port}`);
