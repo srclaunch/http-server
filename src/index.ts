@@ -202,18 +202,10 @@ export class HttpServer {
     // server.use(helmet());
     // this.logger.info('Initialized Helmet.');
 
-    this.logger.info('Configuring CORS headers');
-
+    this.logger.info('Configuring CORS');
     this.express.use(
       cors({
-        allowedHeaders: [
-          'Content-Type',
-          'Authorization',
-          'X-Requested-With',
-          'X-Request-Id',
-        ],
         credentials: true,
-        methods: ['DELETE', 'GET', 'PATCH', 'POST', 'PUT', 'OPTIONS'],
         origin: (origin, callback) => {
           if (this.options.trustedOrigins) {
             if (
