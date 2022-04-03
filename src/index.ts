@@ -115,7 +115,7 @@ export class HttpServer {
       server: this.server,
     });
 
-    this.logger.info('🟢 Server configured successfully');
+    this.logger.info('Server configured successfully');
   }
 
   private configureLogging(): void {
@@ -256,11 +256,7 @@ export class HttpServer {
           );
 
           this.logger.exception(exception.toJSON());
-        } else {
-          this.logger.info('Server listener closed');
         }
-
-        this.logger.info('Killing server process... Goodbye.');
 
         try {
           throw new KillProcessException('Shutting down gracefully', {
