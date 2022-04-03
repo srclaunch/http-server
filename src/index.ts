@@ -33,7 +33,8 @@ export class HttpServer {
   listener?: http.Server;
   readonly logger: Logger;
   name: string;
-  server: Express;
+  private readonly express: Express;
+  private server?: Express;
   readonly options: ServerOptions = {
     port: 8080,
   };
@@ -57,7 +58,7 @@ export class HttpServer {
       new Logger({
         environment,
       });
-    this.server = express();
+    this.express = express();
     this.name = name;
     this.endpoints = endpoints;
     this.options = { ...this.options, ...options };
@@ -81,6 +82,13 @@ export class HttpServer {
   public async listen(portArg?: number): Promise<http.Server> {
     const port = portArg ?? this.options?.port ?? 8080;
 
+    this.logger.info('Setting up HTTP endpoints');
+    this.server = await setupEndpoints({
+      basePath: `/${this.name}`,
+      endpoints: this.endpoints,
+      express: this.express,
+    });
+
     this.listener = this.server.listen(port, () => {
       this.logger.info(
         `❤️ Healthcheck endpoint listening at '${HealthcheckEndpoint.route}'`,
@@ -92,7 +100,7 @@ export class HttpServer {
     return this.listener;
   }
 
-  private async configure(): Promise<void> {
+  private configure(): void {
     this.configureLogging();
     this.configureExceptionHandling();
 
@@ -108,19 +116,12 @@ export class HttpServer {
     this.logger.info('Securing server');
     this.secure();
 
-    this.logger.info('Setting up HTTP endpoints');
-    this.server = await setupEndpoints({
-      basePath: `/${this.name}`,
-      endpoints: this.endpoints,
-      server: this.server,
-    });
-
     this.logger.info('Server configured successfully');
   }
 
   private configureLogging(): void {
     this.logger.info('Enabling HTTP request tracing "X-Request-Id" header');
-    this.server.use((req: Request, res: Response, next: NextFunction) => {
+    this.express.use((req: Request, res: Response, next: NextFunction) => {
       const requestId = req.headers['X-Request-Id'];
 
       if (requestId) {
@@ -131,7 +132,7 @@ export class HttpServer {
     });
 
     this.logger.info('Adding HTTP request logging middleware');
-    this.server.use((req, res, next) =>
+    this.express.use((req, res, next) =>
       expressLoggerMiddleware(this.logger, req, res, next),
     );
   }
@@ -140,11 +141,11 @@ export class HttpServer {
     this.logger.info('Adding exception handling middleware');
     const exceptionMiddleware: ErrorRequestHandler = (err, req, res, next) =>
       expressExceptionMiddleware(err, this.logger, req, res, next);
-    this.server.use(exceptionMiddleware);
+    this.express.use(exceptionMiddleware);
 
     this.logger.info('Adding server process exception handler');
 
-    this.server.on('error', (err: any) => {
+    this.express.on('error', (err: any) => {
       console.error('ERROR:', err);
       const isManaged = err instanceof Exception;
       const exception = isManaged
@@ -176,7 +177,7 @@ export class HttpServer {
 
   private configureOptimizations(): void {
     this.logger.info('Enabling compression');
-    this.server.use(compression());
+    this.express.use(compression());
   }
 
   private enableFileUplaods(): void {
@@ -184,25 +185,25 @@ export class HttpServer {
     this.logger.info('Enabling file uploads to memory storage');
     const multerStorage = multer.memoryStorage();
     const upload = multer({ storage: multerStorage }).any();
-    this.server.use(upload);
+    this.express.use(upload);
   }
 
   private setAcceptableContentTypes(): void {
     this.logger.info('Setting acceptable Content-Type to application/json');
-    this.server.use(express.json());
-    this.server.use(express.urlencoded({ extended: false }));
+    this.express.use(express.json());
+    this.express.use(express.urlencoded({ extended: false }));
   }
 
   private secure() {
     this.logger.info('Disabling insecure HTTP headers');
-    this.server.disable('x-powered-by');
-    this.server.disable('etag');
+    this.express.disable('x-powered-by');
+    this.express.disable('etag');
 
     // server.use(helmet());
     // this.logger.info('Initialized Helmet.');
 
     this.logger.info('Configuring CORS headers');
-    this.server.use(
+    this.express.use(
       cors({
         credentials: true,
         origin: this.options.trustedOrigins?.[this.environment.id],

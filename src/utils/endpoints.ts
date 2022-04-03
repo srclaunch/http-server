@@ -44,26 +44,26 @@ const exceptionWrapper = async (
 
 export async function setupEndpoints({
   basePath,
-  server,
+  express,
   endpoints,
 }: {
   basePath?: string;
-  server: Express;
+  express: Express;
   endpoints: Endpoint[];
 }): Promise<Express> {
   for (const endpoint of endpoints) {
-    server[endpoint.method](
+    express[endpoint.method](
       `${basePath}${endpoint.route}`,
       async (req: Request, res: Response) =>
         await exceptionWrapper(req, res, endpoint.handler),
     );
   }
 
-  server[HttpRequestMethod.Get](
+  express[HttpRequestMethod.Get](
     '/healthcheck',
     async (req: Request, res: Response) =>
       await exceptionWrapper(req, res, HealthcheckEndpoint.handler),
   );
 
-  return server;
+  return express;
 }

@@ -2,7 +2,6 @@
 import { ProcessException, ProcessSigIntException, ProcessSigTermException } from '@srclaunch/exceptions';
 import { Logger } from '@srclaunch/logger';
 import { Environment } from '@srclaunch/types';
-import { Express } from 'express';
 import http from 'node:http';
 import { Endpoint } from './types/endpoint';
 import { ServerOptions } from './types/server';
@@ -12,7 +11,8 @@ export declare class HttpServer {
     listener?: http.Server;
     readonly logger: Logger;
     name: string;
-    server: Express;
+    private readonly express;
+    private server?;
     readonly options: ServerOptions;
     constructor({ endpoints, environment, logger, name, options, }: {
         readonly endpoints: Endpoint[];
