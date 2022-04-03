@@ -1,6 +1,6 @@
 import {
   Exception,
-  ExceptionsClient,
+  // ExceptionsClient,
   KillProcessException,
   ProcessException,
   ProcessSigIntException,
@@ -10,9 +10,9 @@ import {
 } from '@srclaunch/exceptions';
 import { Logger, expressLoggerMiddleware } from '@srclaunch/logger';
 import { Environment } from '@srclaunch/types';
-import exitHook from 'async-exit-hook';
+// import exitHook from 'async-exit-hook';
 import compression from 'compression';
-import cors from 'cors';
+// import cors from 'cors';
 import express, {
   Express,
   ErrorRequestHandler,
@@ -203,32 +203,32 @@ export class HttpServer {
     // this.logger.info('Initialized Helmet.');
 
     this.logger.info('Configuring CORS headers');
-    this.express.use(
-      cors({
-        credentials: true,
-        origin: this.options.trustedOrigins?.[this.environment.id],
-      }),
-    );
-
-    // this.server.use(
-    //   (req: Express.Request, res: Response, next: NextFunction) => {
-    //     if (this.options.trustedOrigins && this.environment?.id) {
-    //       const origins =
-    //         this.options.trustedOrigins?.[this.environment?.id] ?? [];
-
-    //       for (const origin of origins) {
-    //         this.logger.info(`Allowing access from origin ${origin}...`);
-    //         res.setHeader('Access-Control-Allow-Origin', origin);
-    //       }
-    //     }
-
-    //     res.setHeader('Access-Control-Allow-Methods', '*');
-    //     res.setHeader('Access-Control-Allow-Headers', '*');
-    //     res.setHeader('Access-Control-Allow-Credentials', 'true');
-
-    //     return next();
-    //   },
+    // this.express.use(
+    //   cors({
+    //     credentials: true,
+    //     origin: this.options.trustedOrigins?.[this.environment.id],
+    //   }),
     // );
+
+    this.express.use((req: Request, res: Response, next: NextFunction) => {
+      if (this.options.trustedOrigins && this.environment?.id) {
+        const origins =
+          this.options.trustedOrigins?.[this.environment?.id] ?? [];
+
+        const origin = origins.find(o => req.get('origin'));
+
+        if (origin) {
+          this.logger.info(`Allowing access from origin ${origin}...`);
+          res.setHeader('Access-Control-Allow-Origin', origin);
+        }
+      }
+
+      res.setHeader('Access-Control-Allow-Methods', '*');
+      res.setHeader('Access-Control-Allow-Headers', '*');
+      res.setHeader('Access-Control-Allow-Credentials', 'true');
+
+      return next();
+    });
 
     // server.use(allowCrossDomain);
   }
