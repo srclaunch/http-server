@@ -24,6 +24,7 @@ export { StripeException, StripeMissingSecretKeyException, StripePaymentMethodRe
 export { NullUserException, UserException, UserStateConflictException, } from './lib/exceptions/user/index';
 export { InvalidArgumentException, InvalidPropertyException, InvalidTypeException, MissingArgumentException, MissingPropertyException, ValidationException, } from './lib/exceptions/validation/index';
 export { handleProcessExceptions, handleProcessInterupt, handleProcessTermination, } from './lib/process';
+export { expressExceptionMiddleware } from './lib/middleware/express';
 export { ExceptionRemediator } from './lib/remediation';
 export { ExceptionCode } from './types/exception';
 export type { ExceptionConstructorArgs, ExceptionObject, ExceptionRemediation, } from './types/index';

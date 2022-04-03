@@ -9,7 +9,7 @@ const logger = new Logger();
 
 const remediator = new ExceptionRemediator();
 
-export const HealthcheckEndpoint = {
+export const HealthcheckEndpoint: Endpoint = {
   handler: (req: Request, res: Response) => {
     return res.sendStatus(200);
   },
@@ -34,13 +34,15 @@ const exceptionWrapper = async (
       },
     });
 
+    console.log('exception in exceptionWrapper', exception.toJSON());
+
     logger.exception(exception.toJSON());
 
     return remediator.handleException(err, { res });
   }
 };
 
-export function setupEndpoints({
+export async function setupEndpoints({
   basePath,
   server,
   endpoints,
@@ -48,9 +50,7 @@ export function setupEndpoints({
   basePath?: string;
   server: Express;
   endpoints: Endpoint[];
-}): Express {
-  logger.info('Attaching network endpoints...');
-
+}): Promise<Express> {
   for (const endpoint of endpoints) {
     server[endpoint.method](
       `${basePath}${endpoint.route}`,
@@ -58,6 +58,12 @@ export function setupEndpoints({
         await exceptionWrapper(req, res, endpoint.handler),
     );
   }
+
+  server[HttpRequestMethod.Get](
+    '/healthcheck',
+    async (req: Request, res: Response) =>
+      await exceptionWrapper(req, res, HealthcheckEndpoint.handler),
+  );
 
   return server;
 }
