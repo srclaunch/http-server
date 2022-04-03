@@ -203,25 +203,25 @@ export class HttpServer {
     // this.logger.info('Initialized Helmet.');
 
     this.logger.info('Configuring CORS headers');
-    this.express.use(
-      cors({
-        credentials: true,
-        origin: this.options.trustedOrigins?.[this.environment.id],
-      }),
-    );
+    // this.express.use(
+    //   cors({
+    //     credentials: true,
+    //     origin: this.options.trustedOrigins?.[this.environment.id],
+    //   }),
+    // );
 
     this.express.use((req: Request, res: Response, next: NextFunction) => {
-      // if (this.options.trustedOrigins && this.environment?.id) {
-      //   const origins =
-      //     this.options.trustedOrigins?.[this.environment?.id] ?? [];
+      if (this.options.trustedOrigins && this.environment?.id) {
+        const origins =
+          this.options.trustedOrigins?.[this.environment?.id] ?? [];
 
-      //   const origin = origins.find(o => req.get('origin'));
+        const origin = origins.find(o => o === req.get('origin'));
 
-      //   if (origin) {
-      //     this.logger.info(`Allowing access from origin ${origin}...`);
-      //     res.setHeader('Access-Control-Allow-Origin', origin);
-      //   }
-      // }
+        if (origin) {
+          this.logger.info(`Allowing access from origin ${origin}...`);
+          res.setHeader('Access-Control-Allow-Origin', origin);
+        }
+      }
 
       res.setHeader('Access-Control-Allow-Methods', '*');
       res.setHeader('Access-Control-Allow-Headers', '*');
