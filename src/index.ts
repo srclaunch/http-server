@@ -227,7 +227,7 @@ export class HttpServer {
       res.setHeader('Access-Control-Allow-Headers', '*');
       res.setHeader('Access-Control-Allow-Credentials', 'true');
 
-      return next();
+      next();
     });
 
     // server.use(allowCrossDomain);
