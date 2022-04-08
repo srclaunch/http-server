@@ -135,11 +135,6 @@ export class HttpServer {
     this.express.use((req, res, next) =>
       expressLoggerMiddleware(this.logger, req, res, next),
     );
-    this.express.use((req, res, next) => {
-      console.log('request');
-      console.log(req);
-      next();
-    });
   }
 
   private configureExceptionHandling(): void {
@@ -209,17 +204,20 @@ export class HttpServer {
     // this.logger.info('Initialized Helmet.');
 
     this.logger.info('Configuring CORS');
-    this.express.use(
+    this.express.use((req, res, next) =>
       cors({
         credentials: true,
         origin: (origin, callback) => {
+          console.log('request');
+          console.log(req);
           console.log('origin', origin);
           if (this.options.trustedOrigins) {
             if (
-              origin &&
-              this.options.trustedOrigins?.[this.environment?.id]?.includes(
-                origin,
-              )
+              req.originalUrl === '/healthcheck' ||
+              (origin &&
+                this.options.trustedOrigins?.[this.environment?.id]?.includes(
+                  origin,
+                ))
             ) {
               callback(null, true);
             } else {
