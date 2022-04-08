@@ -204,36 +204,31 @@ export class HttpServer {
     // this.logger.info('Initialized Helmet.');
 
     this.logger.info('Configuring CORS');
-    this.express.use((req, res, next) =>
-      cors({
-        credentials: true,
-        origin: (origin, callback) => {
-          console.log('request');
-          console.log(req);
-          console.log('origin', origin);
-          const isHealthcheck = req.originalUrl === '/healthcheck';
+    this.express.use((req, res, next) => {
+      const isHealthcheck = req.originalUrl === '/healthcheck';
+      if (isHealthcheck) {
+        res.set('Access-Control-Allow-Origin', req.get('origin'));
+        res.setHeader('Access-Control-Allow-Methods', '*');
+        res.setHeader('Access-Control-Allow-Headers', '*');
+      }
 
-          if (isHealthcheck) {
-            callback(null, true);
-          }
+      if (this.options.trustedOrigins && this.environment?.id) {
+        const origins =
+          this.options.trustedOrigins?.[this.environment?.id] ?? [];
+        const currentOrigin = req.get('origin');
 
-          if (this.options.trustedOrigins) {
-            if (
-              origin &&
-              this.options.trustedOrigins?.[this.environment?.id]?.includes(
-                origin,
-              )
-            ) {
-              callback(null, true);
-            } else {
-              callback(new Error('Not allowed by CORS'));
-            }
-          } else {
-            callback(null, true);
-          }
-        },
-      }),
-    );
+        if (currentOrigin && origins.includes(currentOrigin)) {
+          this.logger.info(`Allowing CORS access from origin ${origin}...`);
+          res.set('Access-Control-Allow-Origin', currentOrigin);
+          res.set('Access-Control-Allow-Credentials', 'true');
+        }
+      }
+
+      res.setHeader('Access-Control-Allow-Methods', '*');
+      res.setHeader('Access-Control-Allow-Headers', '*');
+
+      next();
+    });
 
     // server.use(allowCrossDomain);
   }

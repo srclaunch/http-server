@@ -87,7 +87,7 @@
   },
   "dependencies": {
     "@srclaunch/exceptions": "^0.1.42",
-    "@srclaunch/logger": "^0.1.44",
+    "@srclaunch/logger": "^0.1.45",
     "@srclaunch/node-environment": "^0.1.8",
     "async-exit-hook": "^2.0.1",
     "compression": "^1.7.4",

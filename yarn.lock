@@ -291,7 +291,7 @@ __metadata:
     "@srclaunch/dx": ^0.1.18
     "@srclaunch/exceptions": ^0.1.42
     "@srclaunch/http-client": ^0.1.14
-    "@srclaunch/logger": ^0.1.44
+    "@srclaunch/logger": ^0.1.45
     "@srclaunch/node-environment": ^0.1.8
     "@srclaunch/types": ^0.1.28
     "@types/async-exit-hook": ^2.0.0
@@ -365,14 +365,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@srclaunch/logger@npm:^0.1.44":
-  version: 0.1.44
-  resolution: "@srclaunch/logger@npm:0.1.44"
+"@srclaunch/logger@npm:^0.1.45":
+  version: 0.1.45
+  resolution: "@srclaunch/logger@npm:0.1.45"
   dependencies:
     chalk: ^5.0.1
     luxon: ^2.3.1
     nanoid: ^3.3.2
-  checksum: 199cd78bc29a82d215c70688b37256db047038d2b3cc1cb517d6223dfb79e7bc065ca596603f830bc3853a89383a5816c96207f5289968794b4c7cd279aacb53
+  checksum: 83e3ba207abc14468f168f20ff491b8d661d71e9bf4213c823d2cccbff7b6543c988d60caf6aa0ed3380392bce90141aa9911592294f10c346f5dcd203ad40a7
   languageName: node
   linkType: hard
 
