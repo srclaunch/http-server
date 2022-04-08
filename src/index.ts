@@ -211,13 +211,18 @@ export class HttpServer {
           console.log('request');
           console.log(req);
           console.log('origin', origin);
+          const isHealthcheck = req.originalUrl === '/healthcheck';
+
+          if (isHealthcheck) {
+            callback(null, true);
+          }
+
           if (this.options.trustedOrigins) {
             if (
-              req.originalUrl === '/healthcheck' ||
-              (origin &&
-                this.options.trustedOrigins?.[this.environment?.id]?.includes(
-                  origin,
-                ))
+              origin &&
+              this.options.trustedOrigins?.[this.environment?.id]?.includes(
+                origin,
+              )
             ) {
               callback(null, true);
             } else {
