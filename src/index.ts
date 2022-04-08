@@ -135,11 +135,17 @@ export class HttpServer {
     this.express.use((req, res, next) =>
       expressLoggerMiddleware(this.logger, req, res, next),
     );
+    this.express.use((req, res, next) => {
+      console.log('request');
+      console.log(req);
+      next();
+    });
   }
 
   private configureExceptionHandling(): void {
     this.logger.info('Adding exception handling middleware');
     const exceptionMiddleware: ErrorRequestHandler = (err, req, res, next) =>
+      // @ts-ignore
       expressExceptionMiddleware(err, this.logger, req, res, next);
     this.express.use(exceptionMiddleware);
 
@@ -207,6 +213,7 @@ export class HttpServer {
       cors({
         credentials: true,
         origin: (origin, callback) => {
+          console.log('origin', origin);
           if (this.options.trustedOrigins) {
             if (
               origin &&

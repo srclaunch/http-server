@@ -3,7 +3,7 @@
   "description": "SrcLaunch application and service Logging utilities",
   "author": "Steven Bennett <steven@srclaunch.com>",
   "license": "ISC",
-  "version": "0.1.43",
+  "version": "0.1.44",
   "engines": {
     "node": ">=16"
   },
