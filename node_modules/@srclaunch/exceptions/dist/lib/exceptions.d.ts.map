@@ -1,1 +1,0 @@
-{"version":3,"file":"exceptions.d.ts","sourceRoot":"","sources":["../../src/lib/exceptions.ts"],"names":[],"mappings":"AAAA,OAAO,EAAE,aAAa,EAAE,MAAM,oBAAoB,CAAC;AACnD,OAAO,EAAE,SAAS,EAAE,MAAM,aAAa,CAAC;AAoGxC,eAAO,MAAM,YAAY,EAAE;IAAE,QAAQ,EAAE,IAAI,EAAE,MAAM,GAAG,OAAO,SAAS,CAAA;CA0HrE,CAAC;AAEF,wBAAgB,oBAAoB,CAAC,IAAI,EAAE,aAAa,gCAEvD"}

@@ -120,6 +120,11 @@ export class HttpServer {
   }
 
   private configureLogging(): void {
+    this.logger.info('Adding HTTP request logging middleware');
+    this.express.use((req, res, next) =>
+      expressLoggerMiddleware(this.logger, req, res, next),
+    );
+
     this.logger.info('Enabling HTTP request tracing "X-Request-Id" header');
     this.express.use((req: Request, res: Response, next: NextFunction) => {
       const requestId = req.headers['X-Request-Id'];
@@ -130,11 +135,6 @@ export class HttpServer {
 
       next();
     });
-
-    this.logger.info('Adding HTTP request logging middleware');
-    this.express.use((req, res, next) =>
-      expressLoggerMiddleware(this.logger, req, res, next),
-    );
   }
 
   private configureExceptionHandling(): void {
